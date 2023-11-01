@@ -12,6 +12,7 @@ fi
 
 
 AGM_GITHUB_USER="$(cat "${ENV_DIR}/AGM_GITHUB_USER")"
+echo '     !!!! GITHUB USER: ${AGM_GITHUB_USER}'
 AGM_GITHUB_ACCESS_TOKEN="$(cat "${ENV_DIR}/AGM_GITHUB_ACCESS_TOKEN")"
 #git clone https://$AGM_GITHUB_USER:$AGM_GITHUB_AUTH_TOKEN@github.com/agm316/boyd_common.git@main /app/server/
 
