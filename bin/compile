@@ -1,0 +1,28 @@
+#!/bin/sh
+
+set -euo pipefail
+
+BUILD_DIR="${1}"
+ENV_DIR="${3}"
+
+if [[ ! -f "${ENV_DIR}/AGM_GITHUB_ACCESS_TOKEN ]]; then
+    echo '       !!!! ENV VARIABLE NOT SET' >&2
+    exit 1
+fi
+
+
+AGM_GITHUB_USER="$(cat "${ENV_DIR}/AGM_GITHUB_USER")"
+AGM_GITHUB_ACCESS_TOKEN="$(cat "${ENV_DIR}/AGM_GITHUB_ACCESS_TOKEN")"
+#git clone https://$AGM_GITHUB_USER:$AGM_GITHUB_AUTH_TOKEN@github.com/agm316/boyd_common.git@main /app/server/
+
+# Clone the private repository using the PAT
+/app/.heroku/python/bin/pip install git+https://$AGM_GITHUB_USER:$AGM_GITHUB_AUTH_TOKEN@github.com/agm316/boyd_common.git@main --exists-action=w --src=/app/.heroku/src --disable-pip-version-check --no-cache-dir --progress-bar off 1>&1 | tee "$WARNINGS_LOG" | cleanup | indent
+PIP_STATUS="${PIPESTATUS[0]}"
+set -e
+
+show-warnings
+
+if [[ ! $PIP_STATUS -eq 0 ]]; then
+    mcount "failure.pip-install"
+    exit 1
+fi
