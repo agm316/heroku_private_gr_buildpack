@@ -18,7 +18,7 @@ AGM_GITHUB_ACCESS_TOKEN="$(cat "${ENV_DIR}/AGM_GITHUB_ACCESS_TOKEN")"
 
 # Clone the private repository using the PAT
 /app/.heroku/python/bin/pip install git+https://$AGM_GITHUB_USER:$AGM_GITHUB_AUTH_TOKEN@github.com/agm316/boyd_common.git@main --exists-action=w --src=/app/.heroku/src --disable-pip-version-check --no-cache-dir --progress-bar off 1>&1 | tee "$WARNINGS_LOG" | cleanup | indent
-PIP_STATUS="${PIPESTATUS[0]}"
+PIP_STATUS=${PIPESTATUS[0]}
 set -e
 
 show-warnings
