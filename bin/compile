@@ -21,7 +21,6 @@ AGM_GITHUB_ACCESS_TOKEN="$(cat "${ENV_DIR}/AGM_GITHUB_ACCESS_TOKEN")"
 PIP_STATUS="${PIPESTATUS[0]}"
 set -e
 
-show-warnings
 if [[ ! $PIP_STATUS -eq 0 ]]; then
     mcount "failure.pip-install"
     exit 1
